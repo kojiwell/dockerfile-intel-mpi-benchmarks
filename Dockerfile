@@ -7,12 +7,12 @@ RUN apt-get update \
 
 # Install OpenMPI
 ARG MPI_SERIES=v4.0
-ARG MPI_VERSION=4.0.0
+ARG MPI_VERSION=4.0.1
 ARG MPI_URL=https://download.open-mpi.org/release/open-mpi/${MPI_SERIES}/openmpi-${MPI_VERSION}.tar.bz2
 RUN wget --quiet $MPI_URL -P /root
 RUN tar jxf /root/openmpi-${MPI_VERSION}.tar.bz2 -C /root
 WORKDIR /root/openmpi-${MPI_VERSION}
-RUN ./configure --prefix=/usr/local \
+RUN ./configure --prefix=/usr/local --enable-orterun-prefix-by-default \
  && make \
  && make install \
  && ldconfig
